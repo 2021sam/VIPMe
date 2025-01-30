@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garage Door Control</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Garage Door Control</h1>
+        
+        <!-- Garage Status -->
+        <p>Status: <span id="garage-status">{{ 'Open' if garage_open else 'Closed' }}</span></p>
+        
+        <!-- Toggle Button -->
+        <button id="toggle-btn">{{ 'Close' if garage_open else 'Open' }} Garage</button>
+        
+        <!-- Menu Buttons -->
+        <div class="menu-buttons">
+            <a href="/log"><button>View Event Log</button></a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('toggle-btn').addEventListener('click', function() {
+            fetch('/toggle', {
+                method: 'POST',
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update garage status on UI
+                document.getElementById('garage-status').textContent = data.garage_open ? 'Open' : 'Closed';
+                document.getElementById('toggle-btn').textContent = data.garage_open ? 'Close Garage' : 'Open Garage';
+            });
+        });
+    </script>
+</body>
+</html>

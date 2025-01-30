@@ -1,0 +1,41 @@
+# Python bytecode files
+*.pyc
+*.pyo
+__pycache__/
+
+# Virtual environment directories
+venv/
+.env/
+*.env
+
+# Flask instance folder (used for storing configuration, logs, etc.)
+instance/
+
+# Flask logs
+*.log
+
+# Configuration files that might contain sensitive information (e.g. keys)
+*.cfg
+*.ini
+*.json
+*.yaml
+
+# SQLite database file (if used)
+*.db
+*.sqlite3
+
+# Gunicorn and Nginx related files
+*.pid
+*.sock
+
+# System-specific files
+.DS_Store  # MacOS
+Thumbs.db  # Windows
+
+# IDE files
+.vscode/
+.idea/
+*.swp  # Vim swap files
+
+# Backup files
+*~  # Vim, emacs, or other editor backups
