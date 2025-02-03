@@ -1,0 +1,32 @@
+The naming convention for `User` and `Group` in a systemd service file follows Linux user and group management rules:
+
+### **User Naming Convention:**
+- Typically corresponds to an existing system user.
+- Can be a standard user (e.g., `pi`, `ubuntu`) or a dedicated service user (e.g., `www-data`).
+- Should not be root unless absolutely necessary for security reasons.
+- Should be lowercase and avoid special characters.
+
+### **Group Naming Convention:**
+- Typically corresponds to an existing system group.
+- Common web service groups: `www-data`, `nginx`, `gunicorn`.
+- Should be lowercase and consistent with related services.
+- Can be the same as `User` or a group that grants access to needed resources.
+
+### **Example Conventions:**
+- **For a personal app (running as `pi`):**
+  ```ini
+  User=pi
+  Group=www-data
+  ```
+  - `pi`: Runs the process.
+  - `www-data`: Ensures Nginx can interact with the app.
+
+- **For a dedicated service user (more secure):**
+  ```ini
+  User=flaskuser
+  Group=flaskgroup
+  ```
+  - `flaskuser`: A user dedicated to running Flask.
+  - `flaskgroup`: A group managing access.
+
+Would you like to adjust your setup based on this?
