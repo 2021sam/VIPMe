@@ -33,3 +33,9 @@ Sonic TOF Sensor vl53:
 https://learn.adafruit.com/adafruit-vl53l0x-micro-lidar-distance-sensor-breakout/python-circuitpython
 sudo pip3 install adafruit-circuitpython-vl53l0x
 
+
+
+Debugging:
+
+sudo lsof -i :5000
+

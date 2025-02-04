@@ -63,12 +63,16 @@ def index():
 @app.route('/toggle', methods=['POST'])
 def toggle_garage():
     """ Toggle garage door open/close """
-    if garage_open:
-        GPIO.output(PIN_OUT, GPIO.LOW)  # Close garage
-        log_event("Garage closed.")
-    else:
-        GPIO.output(PIN_OUT, GPIO.HIGH)  # Open garage
-        log_event("Garage opened.")
+    print('Toggle Garage')
+    GPIO.output(PIN_OUT, GPIO.HIGH)
+    time.sleep(1)
+    GPIO.output(PIN_OUT, GPIO.LOW)
+    # if garage_open:
+    #     GPIO.output(PIN_OUT, GPIO.LOW)  # Close garage
+    #     log_event("Garage closed.")
+    # else:
+    #     GPIO.output(PIN_OUT, GPIO.HIGH)  # Open garage
+    #     log_event("Garage opened.")
     
     return jsonify({"status": "success", "garage_open": garage_open})
 
