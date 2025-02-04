@@ -1,0 +1,96 @@
+    /* Global styles */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: #4CAF50; /* Green color */
+    }
+
+    .status-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        text-align: center;
+    }
+
+    .status {
+        font-size: 1.5rem;
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .status.open {
+        background-color: #4CAF50; /* Green for open */
+        color: white;
+    }
+
+    .status.closed {
+        background-color: #f44336; /* Red for closed */
+        color: white;
+    }
+
+    .distance {
+        font-size: 1.25rem;
+        color: #555;
+        margin-top: 10px;
+    }
+
+    .btn {
+        padding: 20px 40px; /* Larger padding for bigger button */
+        font-size: 1.5rem;   /* Larger font size */
+        color: white;
+        background-color: #008CBA; /* Blue for button */
+        border: none;
+        border-radius: 10px; /* Rounded corners */
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        width: 100%; /* Make it full width inside the container */
+        box-sizing: border-box; /* Ensure full width works correctly */
+    }
+
+    .btn:hover {
+        background-color: #005f73; /* Darker blue on hover */
+        transform: scale(1.05); /* Slightly increase button size on hover */
+    }
+
+    .log-btn {
+        margin-top: 30px;
+        background-color: #f1c40f; /* Yellow */
+    }
+
+    .log-btn:hover {
+        background-color: #f39c12; /* Darker yellow on hover */
+    }
+
+    .log-container {
+        margin-top: 30px;
+        max-height: 200px;
+        overflow-y: auto;
+        padding: 10px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 300px;
+    }
+
+    .log-entry {
+        background-color: #e7e7e7;
+        padding: 8px;
+        margin: 4px 0;
+        border-radius: 5px;
+    }

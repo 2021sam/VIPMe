@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Garage Control</title>
+    <link rel="stylesheet" href="static/styles.css">
+
 </head>
 <body>
     <h1>Garage Control</h1>
@@ -12,7 +14,7 @@
     <p>Distance from Sensor: {{ distance }} mm</p>
 
     <form action="/toggle" method="post">
-        <button type="submit">{{ 'Close Garage' if garage_open else 'Open Garage' }}</button>
+        <button class="btn" type="submit">{{ 'Close Garage' if garage_open else 'Open Garage' }}</button>
     </form>
 
     <h2>Event Log</h2>
