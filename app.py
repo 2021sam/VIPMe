@@ -1,8 +1,17 @@
+# /home/x/apps/vipme/app.py
+# pip install RPi.GPIO
+
 from flask import Flask, render_template, jsonify, request
 import RPi.GPIO as GPIO
 import time
+import logging
+
 
 app = Flask(__name__)
+
+
+# Set up logging to file
+logging.basicConfig(filename='app.log', level=logging.DEBUG)
 
 # GPIO setup
 PIN_IN = 17  # Adjust to your sensor pin

@@ -1,0 +1,25 @@
+# /etc/systemd/system/vipme.service
+
+[Unit]
+Description=Gunicorn server for vipme project
+Requires=vipme.socket
+After=network.target
+
+[Service]
+User=x
+Group=www-data
+EnvironmentFile=/home/x/apps/vipme/.env
+WorkingDirectory=/home/x/apps/vipme
+ExecStart=/home/x/apps/vipme/venv/bin/gunicorn --workers 3 --bind unix:/home/x/apps/vipme/gunicorn.sock wsgi:app
+
+Type=notify
+# the specific user that our service will run as
+User=x
+Group=www-data
+RuntimeDirectory=gunicorn
+Restart=always
+TimeoutStartSec=5
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

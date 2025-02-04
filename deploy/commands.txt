@@ -1,0 +1,35 @@
+chown -R x:www-data /home/x/apps/vipme
+
+sudo systemctl daemon-reload
+
+deactivate  # If you are currently in a virtual environment
+rm -rf /home/x/apps/vipme/venv
+
+source /home/x/apps/vipme/venv/bin/activate
+
+
+journalctl -xe | tail -50
+
+
+sudo chown -R x:www-data /home/x/apps/vipme/venv
+sudo chmod -R 775 /home/x/apps/vipme/venv
+
+sudo systemctl restart nginx
+sudo systemctl restart vipme.service
+
+
+flask app:
+pip install RPi.GPIO
+
+sudo journalctl --rotate               # Rotate logs (creates a new log file)
+sudo journalctl --vacuum-time=1s       # Remove all logs older than 1 second (effectively clears them)
+
+
+pip3 install adafruit-blinka
+
+
+
+Sonic TOF Sensor vl53:
+https://learn.adafruit.com/adafruit-vl53l0x-micro-lidar-distance-sensor-breakout/python-circuitpython
+sudo pip3 install adafruit-circuitpython-vl53l0x
+
