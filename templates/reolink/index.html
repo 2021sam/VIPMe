@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIPMe Control Panel</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        .btn-large {
+            font-size: 24px;
+            padding: 15px 30px;
+            margin: 20px auto;
+            display: block;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+        .stream-player {
+            width: 100%;
+            height: 360px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>VIPMe Control Panel</h1>
+
+    <!-- Stream Section -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>Live Camera Stream</h5>
+        </div>
+        <div class="card-body">
+            <video class="stream-player" controls>
+                <source src="http://10.0.0.123/stream/index.m3u8" type="application/x-mpegURL">
+                Your browser does not support the video tag.
+            </video>
+            <p>Click on the stream to view the live camera feed.</p>
+        </div>
+    </div>
+
+    <!-- Garage Control Section -->
+    <div class="card">
+        <div class="card-header">
+            <h5>Garage Door Control</h5>
+        </div>
+        <div class="card-body">
+            <h3>Garage Status: <span id="garage-status" class="text-danger">Closed</span></h3>
+            <button id="toggle-garage" class="btn btn-primary btn-large" onclick="toggleGarage()">
+                Open Garage
+            </button>
+        </div>
+    </div>
+
+    <!-- Event Log Section -->
+    <div class="card mt-4">
+        <div class="card-header">
+            <h5>Event Log</h5>
+        </div>
+        <div class="card-body">
+            <ul id="event-log" class="list-group">
+                <li class="list-group-item">System initialized.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript to handle toggle -->
+<script>
+    let garageOpen = false;
+
+    function toggleGarage() {
+        // Toggle the garage status
+        garageOpen = !garageOpen;
+        
+        // Update button and status text
+        const statusElement = document.getElementById("garage-status");
+        const buttonElement = document.getElementById("toggle-garage");
+        
+        if (garageOpen) {
+            statusElement.textContent = "Open";
+            statusElement.classList.remove("text-danger");
+            statusElement.classList.add("text-success");
+            buttonElement.textContent = "Close Garage";
+        } else {
+            statusElement.textContent = "Closed";
+            statusElement.classList.remove("text-success");
+            statusElement.classList.add("text-danger");
+            buttonElement.textContent = "Open Garage";
+        }
+
+        // Add to event log
+        const eventLog = document.getElementById("event-log");
+        const newLog = document.createElement("li");
+        newLog.classList.add("list-group-item");
+        newLog.textContent = (garageOpen ? "Garage opened." : "Garage closed.");
+        eventLog.appendChild(newLog);
+        
+        // Send request to the Flask backend to toggle the garage door
+        fetch('/toggle', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.status);
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
