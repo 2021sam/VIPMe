@@ -56,11 +56,32 @@ def get_distance():
             return None
     return None
 
+
+
 @app.route('/')
 def index():
     # Read distance
     distance = get_distance()
-    return render_template('index.html', garage_open=garage_open, events=event_log, distance=distance)
+
+    # External IP setup with different ports
+    camera_1 = '98.36.237.144:91'
+    camera_2 = '98.36.237.144:92'
+    camera_ips = {
+        1: camera_1,
+        2: camera_2
+    }
+
+    # Define context with correct dictionary syntax
+    context = {
+        'garage_open': garage_open,
+        'events': event_log,
+        'distance': distance,
+        'camera_ips': camera_ips
+    }
+
+    # Unpack context properly
+    return render_template('index.html', **context)
+
 
 @app.route('/toggle', methods=['POST'])
 def toggle_garage():
