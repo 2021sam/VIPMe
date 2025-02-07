@@ -1,3 +1,5 @@
+# Remember to test for fault proof by removing power & giving power.
+
 import time
 import board
 import busio
@@ -25,7 +27,7 @@ except Exception as e:
 # GPIO setup for garage control
 PIN_OUT = 18  # Adjust to your garage control pin
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(PIN_OUT, GPIO.OUT, initial=GPIO.LOW)  # Output to control garage
+GPIO.setup(PIN_OUT, GPIO.OUT, initial=GPIO.HIGH)  # Output to control garage
 
 # Variables to track state
 garage_open = False
@@ -64,9 +66,9 @@ def index():
 def toggle_garage():
     """ Toggle garage door open/close """
     print('Toggle Garage')
-    GPIO.output(PIN_OUT, GPIO.HIGH)
-    time.sleep(1)
     GPIO.output(PIN_OUT, GPIO.LOW)
+    time.sleep(1)
+    GPIO.output(PIN_OUT, GPIO.HIGH)
     if garage_open:
         # GPIO.output(PIN_OUT, GPIO.LOW)  # Close garage
         log_event("Garage closed.")
