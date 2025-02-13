@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garage Status</title>
+    <meta http-equiv="refresh" content="10;url={{ url_for('index') }}">
+</head>
+<body>
+    <h1>Garage Door Status</h1>
+    <p>The garage door is currently: <strong>{{ 'opening' if garage_open else 'closing' }}</strong>.</p>
+
+    <p>You will be redirected back to the main page in 10 seconds...</p>
+</body>
+</html>

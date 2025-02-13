@@ -4,7 +4,7 @@ import time
 import board
 import busio
 import adafruit_vl53l0x
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, redirect, url_for
 import RPi.GPIO as GPIO
 import logging
 
@@ -36,6 +36,11 @@ event_log = []
 # Log event function
 def log_event(message):
     event_log.append(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - {message}")
+
+
+# Log the app start time
+log_event("VIPMe App started.")
+
 
 # Get the current distance from the VL53L0X sensor and log it
 def get_distance():
@@ -83,21 +88,48 @@ def index():
     return render_template('index.html', **context)
 
 
+
 @app.route('/toggle', methods=['POST'])
 def toggle_garage():
     """ Toggle garage door open/close """
+    global garage_open  # Ensure we're modifying the global garage_open variable
     print('Toggle Garage')
-    GPIO.output(PIN_OUT, GPIO.LOW)
-    time.sleep(1)
-    GPIO.output(PIN_OUT, GPIO.HIGH)
+
+    # Toggle the GPIO state and update garage_open
     if garage_open:
-        # GPIO.output(PIN_OUT, GPIO.LOW)  # Close garage
+        GPIO.output(PIN_OUT, GPIO.LOW)  # Close garage
+        garage_open = False
         log_event("Garage closed.")
     else:
-        # GPIO.output(PIN_OUT, GPIO.HIGH)  # Open garage
+        GPIO.output(PIN_OUT, GPIO.HIGH)  # Open garage
+        garage_open = True
         log_event("Garage opened.")
     
-    return jsonify({"status": "success", "garage_open": garage_open})
+    # Redirect to toggle status page
+    return redirect(url_for('toggle_page'))
+
+
+@app.route('/toggle_page')
+def toggle_page():
+    """ Show the status of the garage door and redirect after 10 seconds """
+    return render_template('toggle_page.html', garage_open=garage_open)
+
+
+
+@app.route('/toggle-status', methods=['GET'])
+def simulated_toggle_garage():
+    """ Simulate toggling the garage door status (without controlling GPIO) """
+    global garage_open  # Modify the global variable tracking the garage door status
+    
+    # Toggle the status of the garage (no GPIO control)
+    garage_open = not garage_open
+    
+    # Return a simple JSON response with the updated status
+    return jsonify({'status': 'success', 'garage_open': garage_open})
+
+
+
+
 
 @app.route('/log')
 def log():
