@@ -95,13 +95,17 @@ def toggle_garage():
     global garage_open  # Ensure we're modifying the global garage_open variable
     print('Toggle Garage')
 
+    GPIO.output(PIN_OUT, GPIO.LOW)
+    time.sleep(1)
+    GPIO.output(PIN_OUT, GPIO.HIGH)
+
     # Toggle the GPIO state and update garage_open
     if garage_open:
-        GPIO.output(PIN_OUT, GPIO.LOW)  # Close garage
+        # GPIO.output(PIN_OUT, GPIO.LOW)  # Close garage
         garage_open = False
         log_event("Garage closed.")
     else:
-        GPIO.output(PIN_OUT, GPIO.HIGH)  # Open garage
+        # GPIO.output(PIN_OUT, GPIO.HIGH)  # Open garage
         garage_open = True
         log_event("Garage opened.")
     
