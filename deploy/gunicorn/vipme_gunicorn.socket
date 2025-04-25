@@ -1,4 +1,4 @@
-# /etc/systemd/system/vipme.socket
+# /etc/systemd/system/vipme_gunicorn.socket
 
 [Unit]
 Description=gunicorn socket

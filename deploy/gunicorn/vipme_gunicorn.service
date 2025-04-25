@@ -1,4 +1,4 @@
-# /etc/systemd/system/vipme.service
+# /etc/systemd/system/vipme_gunicorn.service
 
 [Unit]
 Description=Gunicorn server for vipme project
