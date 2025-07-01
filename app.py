@@ -27,7 +27,7 @@ except Exception as e:
 # GPIO setup for garage control
 PIN_OUT = 18  # Adjust to your garage control pin
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(PIN_OUT, GPIO.OUT, initial=GPIO.HIGH)  # Output to control garage
+GPIO.setup(PIN_OUT, GPIO.OUT, initial=GPIO.LOW)  # Output to control garage
 
 # Variables to track state
 garage_open = False
@@ -95,9 +95,9 @@ def toggle_garage():
     global garage_open  # Ensure we're modifying the global garage_open variable
     print('Toggle Garage')
 
-    GPIO.output(PIN_OUT, GPIO.LOW)
-    time.sleep(1)
     GPIO.output(PIN_OUT, GPIO.HIGH)
+    time.sleep(1)
+    GPIO.output(PIN_OUT, GPIO.LOW)
 
     # Toggle the GPIO state and update garage_open
     if garage_open:
