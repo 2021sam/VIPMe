@@ -1,0 +1,28 @@
+# ============================================================
+# File: cron.startup.vipme.txt
+# App: vipme
+# Purpose: Start vipme Gunicorn app at boot
+# User: x
+# Working dir: /home/x/apps/vipme
+# Source: crontab -l (filtered for vipme)
+# Restore with: crontab cron.startup.vipme.txt
+# Date captured: 2025-03-17
+#
+# NOTES
+# - vipme is started via cron @reboot
+# - gunicorn.sh is the primary entrypoint
+# - Logs reboot timestamps to reboot_log.txt
+# - Consider migrating to systemd for crash recovery
+# ============================================================
+
+
+# ------------------------------------------------------------
+# VIPME — application startup
+# ------------------------------------------------------------
+
+# Log reboot timestamp
+@reboot date >> /home/x/apps/vipme/reboot_log.txt
+
+# Start Gunicorn app after short delay
+@reboot sleep 10 && /home/x/apps/vipme/gunicorn.sh
+
